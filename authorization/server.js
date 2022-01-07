@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+require("dotenv").config();
 // Path modules is used to handling the file path
 const path = require("path");
 // connect is a functions for connecting database
