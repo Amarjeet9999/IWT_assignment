@@ -11,13 +11,21 @@
     <div class="main">
       <h1>Register</h1>
       <form action="/register" method="POST">
-        <input id="name" value="" name="name" type="text" placeholder="Name" />
+        <input
+          id="name"
+          value=""
+          name="name"
+          type="text"
+          placeholder="Name"
+          required
+        />
         <input
           id="email"
           name="email"
           value=""
           type="text"
           placeholder="Email"
+          required
         />
         <input
           id="password"
@@ -25,6 +33,7 @@
           value=""
           type="text"
           placeholder="Password"
+          required
         />
         <input type="submit" value="Register" />
       </form>

@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 // Creating userSchema
 const userSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
+    username: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
   },
@@ -24,6 +24,11 @@ userSchema.pre("save", function (next) {
   this.password = hash;
   return next();
 });
+
+// Creating a method to check password
+userSchema.methods.checkPassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
 // Creating database model with user name
 module.exports = mongoose.model("user", userSchema);
