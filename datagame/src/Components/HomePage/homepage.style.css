@@ -1,0 +1,31 @@
+.main {
+}
+
+.button {
+  height: max-content;
+  width: max-content;
+  margin: auto;
+  gap: 10px;
+  display: flex;
+}
+
+.button button {
+  height: 50px;
+  width: 200px;
+  font-size: 20px;
+  background-color: yellowgreen;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+}
+
+.data {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 25px;
+}

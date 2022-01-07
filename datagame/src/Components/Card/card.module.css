@@ -1,0 +1,11 @@
+.main {
+  height: 50px;
+  width: 400px;
+  border-bottom: 1px solid;
+  background-color: grey;
+  border-bottom: 1px solid red;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
