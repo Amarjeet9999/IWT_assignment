@@ -7,11 +7,16 @@
   margin: auto;
   gap: 10px;
   display: flex;
+  flex-direction: column;
+  margin: 25px auto;
+}
+.button h1 {
+  margin: 20px auto;
 }
 
 .button button {
-  height: 50px;
-  width: 200px;
+  height: 40px;
+  width: 250px;
   font-size: 20px;
   background-color: yellowgreen;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
@@ -28,4 +33,43 @@
   flex-direction: column;
   gap: 5px;
   margin-top: 25px;
+  color: #daddfc;
+  font-size: 20px;
+  font-weight: 600;
+  position: absolute;
+  top: 150px;
+  left: 350px;
+}
+
+.left {
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 350px;
+  background-color: grey;
+}
+
+.right {
+  height: auto;
+  position: absolute;
+  left: 300px;
+  right: 0;
+  top: 0;
+}
+
+.fixedData {
+  position: fixed;
+  top: 0px;
+  left: 350px;
+  margin: auto;
+  right: 0;
+  z-index: 9999;
+  background-color: #2e4c6d;
+  padding: 10px;
+  padding: 10px;
+}
+
+.showData {
+  margin-top: 35px;
 }
