@@ -2,8 +2,8 @@ import React from "react";
 import "./homepage.style.css";
 import { Card } from "../Card/Card";
 import { fetchData } from "../../Utils/fetchData";
-import DatePicker from "react-date-picker";
 import { convertToNum } from "../../Utils/convertToNum";
+import { LeftComponent } from "./LeftComponent";
 
 export const HomePage = () => {
   const [data, setData] = React.useState({});
@@ -24,71 +24,20 @@ export const HomePage = () => {
     setSelect(val);
   };
 
-  const handleChange = () => {
-    let startDay = startDate.getDate();
-    let startMonth = startDate.getMonth() + 1;
-    let startYear = startDate.getFullYear();
-    let start =
-      "" +
-      startYear +
-      (startMonth <= 9 ? "0" + startMonth : startMonth) +
-      (startDay <= 9 ? "0" + startDay : startDay);
-
-    let endDay = endDate.getDate();
-    let endMonth = endDate.getMonth() + 1;
-    let endYear = endDate.getFullYear();
-    let end =
-      "" +
-      endYear +
-      (endMonth <= 9 ? "0" + endMonth : endMonth) +
-      (endDay <= 9 ? "0" + endDay : endDay);
-    return setFilter({ start: +start, end: +end });
-  };
-
   React.useEffect(() => {
     handleFetch();
   }, []);
 
   return (
     <>
-      <div className="left">
-        <div className="button">
-          <h1>Choose Location</h1>
-          <button onClick={() => handleClick("england")}>
-            England-and-wale
-          </button>
-          <button onClick={() => handleClick("scotland")}>Scotland</button>
-          <button onClick={() => handleClick("northern-ireland")}>
-            Northern-Ireland
-          </button>
-        </div>
-        <div className="filters">
-          <h1>Filter Options</h1>
-          <div className="startDate">
-            <span className="dateSpan">Start date</span>
-            <DatePicker
-              className="datePicker"
-              onChange={setStartDate}
-              value={startDate}
-            />
-          </div>
-          <div className="startDate">
-            <span className="dateSpan">End date</span>
-            <DatePicker
-              className="datePicker"
-              onChange={setEndDate}
-              value={endDate}
-            />
-          </div>
-          <button
-            disabled={!startDate && !endDate}
-            className="buttonSearch"
-            onClick={handleChange}
-          >
-            Search
-          </button>
-        </div>
-      </div>
+      <LeftComponent
+        handleClick={handleClick}
+        setFilter={setFilter}
+        startDate={startDate}
+        endDate={endDate}
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
+      />
       <div className="right">
         <div>
           <div className="fixedData">
@@ -105,6 +54,7 @@ export const HomePage = () => {
             </div>
           </div>
           <div className="data">
+            {Object.keys(data).length === 0 && <h1>No Data Available...</h1>}
             {!loading &&
               (select === "england"
                 ? data["england-and-wales"].events
@@ -115,7 +65,7 @@ export const HomePage = () => {
                       );
                     })
                     .map((e, index) => {
-                      return <Card key={index} title={e.title} />;
+                      return <Card key={index} data={e} />;
                     })
                 : select === "scotland"
                 ? data["scotland"].events
@@ -126,7 +76,7 @@ export const HomePage = () => {
                       );
                     })
                     .map((e, index) => {
-                      return <Card key={index} title={e.title} />;
+                      return <Card key={index} data={e} />;
                     })
                 : data["northern-ireland"].events
                     .filter((e) => {
@@ -136,7 +86,7 @@ export const HomePage = () => {
                       );
                     })
                     .map((e, index) => {
-                      return <Card key={index} title={e.title} />;
+                      return <Card key={index} data={e} />;
                     }))}
           </div>
         </div>
