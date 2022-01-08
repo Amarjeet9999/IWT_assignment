@@ -13,6 +13,7 @@ export const HomePage = () => {
   const [endDate, setEndDate] = React.useState(new Date());
   const [filter, setFilter] = React.useState({ start: 0, end: Infinity });
 
+  // Fetching Data after the render done and saving into data state
   const handleFetch = async () => {
     await fetchData("https://www.gov.uk/bank-holidays.json").then((res) => {
       setData(res);
@@ -27,7 +28,6 @@ export const HomePage = () => {
   React.useEffect(() => {
     handleFetch();
   }, []);
-
   return (
     <>
       <LeftComponent
@@ -41,7 +41,7 @@ export const HomePage = () => {
       <div className="right">
         <div>
           <div className="fixedData">
-            <h1>Simple Data Application</h1>
+            <h1>Simple Weekend's Data Application</h1>
             <div className="showData">
               {!loading &&
                 (select === "england" ? (

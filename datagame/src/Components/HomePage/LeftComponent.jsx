@@ -30,17 +30,25 @@ export const LeftComponent = ({
     return setFilter({ start: +start, end: +end });
   };
 
-  // Single Click date filter logic
+  // Single Click date filter logic, Not Working as expected
   const handleDateFilter = (type) => {
-    let today = new Date().getDate();
+    let todayDay = new Date().getDate();
+    let todayMonth = new Date().getMonth() + 1;
+    let todayYear = new Date().getFullYear();
+
+    let finalDay =
+      "" +
+      todayYear +
+      (todayMonth <= 9 ? "0" + todayMonth : todayMonth) +
+      (todayDay <= 9 ? "0" + todayDay : todayDay);
     if (type === "yesterday") {
-      return setFilter({ start: today - 1, end: today });
+      return setFilter({ start: +finalDay - 1, end: +finalDay });
     }
     if (type === "lastweek") {
-      return setFilter({ start: today - 7, end: today });
+      return setFilter({ start: +finalDay - 7, end: +finalDay });
     }
     if (type === "lastmonth") {
-      return setFilter({ start: today - 28, end: today });
+      return setFilter({ start: +finalDay - 28, end: +finalDay });
     }
   };
 
