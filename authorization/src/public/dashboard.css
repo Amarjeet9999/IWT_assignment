@@ -1,0 +1,23 @@
+body {
+  background-color: grey;
+}
+
+.main {
+  height: 400px;
+  width: 500px;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  position: absolute;
+}
+
+.main h1 {
+  margin: auto 20px;
+}
+.main h2 {
+  margin: 25px auto;
+  width: max-content;
+}

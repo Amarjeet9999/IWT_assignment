@@ -5,6 +5,8 @@ const email = process.env.EMAIL;
 const pass = process.env.PASS;
 
 module.exports = (to) => {
+  console.log("To", to);
+  console.log(email, pass);
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,

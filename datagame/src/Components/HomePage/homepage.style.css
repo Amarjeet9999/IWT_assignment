@@ -27,6 +27,22 @@
   color: white;
 }
 
+.buttonSearch {
+  height: 30px;
+  font-size: 20px;
+  background-color: yellowgreen;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  width: max-content;
+  padding: 0 10px;
+  border: 2px solid;
+  margin-left: 130px;
+}
+
 .data {
   height: auto;
   display: flex;
@@ -38,7 +54,8 @@
   font-weight: 600;
   position: absolute;
   top: 150px;
-  left: 350px;
+  left: 70px;
+  right: 0;
 }
 
 .left {
@@ -56,6 +73,7 @@
   left: 300px;
   right: 0;
   top: 0;
+  margin: auto;
 }
 
 .fixedData {
@@ -64,12 +82,32 @@
   left: 350px;
   margin: auto;
   right: 0;
-  z-index: 9999;
+  z-index: 1;
   background-color: #2e4c6d;
   padding: 10px;
-  padding: 10px;
+  width: 500px;
 }
 
 .showData {
   margin-top: 35px;
 }
+
+.startDate {
+  width: 250px;
+  height: 50px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  display: flex;
+  gap: 5px;
+}
+
+.datePicker {
+  z-index: 999;
+}
+
+.dateSpan {
+  color: whitesmoke;
+  font-weight: 600;
+}
+

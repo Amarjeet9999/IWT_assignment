@@ -5,6 +5,8 @@ const mailSender = require("../utils/senMail");
 
 const { validationResult, body } = require("express-validator");
 
+let userData = {};
+
 router.get("/", async (req, res) => {
   try {
     res.render("index");
@@ -12,7 +14,6 @@ router.get("/", async (req, res) => {
     return res.status(500).json({ err });
   }
 });
-
 
 // Whenever get requests comes with login endpoint
 router.get("/login", async (req, res) => {
@@ -83,12 +84,24 @@ router.post(
 
       // Sending Mail if successfully registered
       if (user) mailSender(req.body.email);
+      userData.email = req.body.email;
+      userData.name = req.body.name;
 
-      return res.redirect("/login");
+      return res.redirect("/dashboard");
     } catch (err) {
-      return res.status(500).json({ err });
+      return res.redirect(req.headers.referer);
     }
   }
 );
+
+router.get("/dashboard", async (req, res) => {
+  try {
+    return res.render("dashboard", {
+      userData: userData,
+    });
+  } catch (err) {
+    return res.redirect(req.headers.referer);
+  }
+});
 
 module.exports = router;

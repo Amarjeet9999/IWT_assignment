@@ -2,11 +2,16 @@ import React from "react";
 import "./homepage.style.css";
 import { Card } from "../Card/Card";
 import { fetchData } from "../../Utils/fetchData";
+import DatePicker from "react-date-picker";
+import { convertToNum } from "../../Utils/convertToNum";
 
 export const HomePage = () => {
   const [data, setData] = React.useState({});
   const [loading, setLoading] = React.useState(true);
   const [select, setSelect] = React.useState("england");
+  const [startDate, setStartDate] = React.useState(new Date());
+  const [endDate, setEndDate] = React.useState(new Date());
+  const [filter, setFilter] = React.useState({ start: 0, end: Infinity });
 
   const handleFetch = async () => {
     await fetchData("https://www.gov.uk/bank-holidays.json").then((res) => {
@@ -17,6 +22,27 @@ export const HomePage = () => {
 
   const handleClick = (val) => {
     setSelect(val);
+  };
+
+  const handleChange = () => {
+    let startDay = startDate.getDate();
+    let startMonth = startDate.getMonth() + 1;
+    let startYear = startDate.getFullYear();
+    let start =
+      "" +
+      startYear +
+      (startMonth <= 9 ? "0" + startMonth : startMonth) +
+      (startDay <= 9 ? "0" + startDay : startDay);
+
+    let endDay = endDate.getDate();
+    let endMonth = endDate.getMonth() + 1;
+    let endYear = endDate.getFullYear();
+    let end =
+      "" +
+      endYear +
+      (endMonth <= 9 ? "0" + endMonth : endMonth) +
+      (endDay <= 9 ? "0" + endDay : endDay);
+    return setFilter({ start: +start, end: +end });
   };
 
   React.useEffect(() => {
@@ -38,11 +64,29 @@ export const HomePage = () => {
         </div>
         <div className="filters">
           <h1>Filter Options</h1>
-          <div className="button">
-            <button>Yesterday</button>
-            <button>Last Week</button>
-            <button>Last Month</button>
+          <div className="startDate">
+            <span className="dateSpan">Start date</span>
+            <DatePicker
+              className="datePicker"
+              onChange={setStartDate}
+              value={startDate}
+            />
           </div>
+          <div className="startDate">
+            <span className="dateSpan">End date</span>
+            <DatePicker
+              className="datePicker"
+              onChange={setEndDate}
+              value={endDate}
+            />
+          </div>
+          <button
+            disabled={!startDate && !endDate}
+            className="buttonSearch"
+            onClick={handleChange}
+          >
+            Search
+          </button>
         </div>
       </div>
       <div className="right">
@@ -63,16 +107,37 @@ export const HomePage = () => {
           <div className="data">
             {!loading &&
               (select === "england"
-                ? data["england-and-wales"].events.map((e, index) => {
-                    return <Card key={index} title={e.title} />;
-                  })
+                ? data["england-and-wales"].events
+                    .filter((e) => {
+                      return (
+                        convertToNum(e.date) >= filter.start &&
+                        convertToNum(e.date) <= filter.end
+                      );
+                    })
+                    .map((e, index) => {
+                      return <Card key={index} title={e.title} />;
+                    })
                 : select === "scotland"
-                ? data["scotland"].events.map((e, index) => {
-                    return <Card key={index} title={e.title} />;
-                  })
-                : data["northern-ireland"].events.map((e, index) => {
-                    return <Card key={index} title={e.title} />;
-                  }))}
+                ? data["scotland"].events
+                    .filter((e) => {
+                      return (
+                        convertToNum(e.date) >= filter.start &&
+                        convertToNum(e.date) <= filter.end
+                      );
+                    })
+                    .map((e, index) => {
+                      return <Card key={index} title={e.title} />;
+                    })
+                : data["northern-ireland"].events
+                    .filter((e) => {
+                      return (
+                        convertToNum(e.date) >= filter.start &&
+                        convertToNum(e.date) <= filter.end
+                      );
+                    })
+                    .map((e, index) => {
+                      return <Card key={index} title={e.title} />;
+                    }))}
           </div>
         </div>
       </div>
